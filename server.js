@@ -10,7 +10,8 @@ var app = express();
 app.locals.baseUrl = process.env.HOSTNAME + ':'+ process.env.PORT;
 console.log(app.locals);
 
-var server = app.listen(process.env.PORT);
+var server = app.listen(remotecoldbeer.herokuapp.com);
+// var server = app.listen(process.env.PORT);
 // var path = require('path');
 app.use(express.static('public'));
 
