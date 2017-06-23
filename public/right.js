@@ -2,6 +2,7 @@ var socket;
 var yA;
 
 function setup() {
+	console.log("version 1");
 	createCanvas(windowWidth, windowHeight);
 	background(255, 0, 0);
 

@@ -3,6 +3,7 @@ var socket;
 
 
 function setup() {
+	console.log("version 1");
 	createCanvas(windowWidth, windowHeight);
 	background(0, 0, 255);
 	// console.log(process.env.HOSTNAME);
@@ -12,7 +13,7 @@ function setup() {
 	// socket = io.connect('172.20.33.122:3000'); The Yard
 	// socket = io.connect(req.app.locals.baseUrl);
 	// socket.on('mouse', newDrawing);
-	console.log(socket);
+	// console.log(socket);
 }
 
 function newDrawing (data) {
