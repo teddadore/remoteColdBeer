@@ -44,7 +44,7 @@ function setup() {
 	engine = Engine.create();
   	world = engine.world;
 
-	socket = io.connect('http://remotecoldbeer.herokuapp.com');
+	socket = io.connect('https://remotecoldbeer.herokuapp.com');
 	// socket = io.connect('http://localhost:3000');
 
 	socket.on('rightPlayer', moveRight);

@@ -9,7 +9,7 @@ function setup() {
 	// socket = io.connect('http://localhost:3000');
 	// socket = io.connect('172.20.33.122:3000');
 	// socket = io.connect('http://localhost:3000');
-	socket = io.connect('http://remotecoldbeer.herokuapp.com');
+	socket = io.connect('https://remotecoldbeer.herokuapp.com');
 	// socket.on('mouse', newDrawing);
 }
 
