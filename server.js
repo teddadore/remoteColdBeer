@@ -1,8 +1,16 @@
 
+require('dotenv').config();
+// baseUrl = process.env.HOSTNAME + ':'+ process.env.PORT;
+// console.log(baseUrl);
 var express = require('express');
 
+
+
 var app = express();
-var server = app.listen(3000);
+app.locals.baseUrl = process.env.HOSTNAME + ':'+ process.env.PORT;
+console.log(app.locals);
+
+var server = app.listen(process.env.PORT);
 // var path = require('path');
 app.use(express.static('public'));
 
