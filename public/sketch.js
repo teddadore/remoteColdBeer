@@ -1,6 +1,11 @@
 // Sockets
 var socket;
 
+// Background Constants
+var Y_AXIS = 1;
+var X_AXIS = 2;
+var bg1, bg2;
+
 // Matter Module Aliases
 var Engine = Matter.Engine,
   World = Matter.World,
@@ -77,6 +82,10 @@ function setup() {
 
 	circle = new Particle(canvas.width/2, canvas.height-140, 20);
 
+	// Background colors
+	bg1 = color(219, 134, 90);
+  	bg2 = color(237, 212, 49);
+
 	// Canvas measurements
 	canvasWidth = canvas.width;
 	canvasHeight = canvas.height;
@@ -141,7 +150,7 @@ function setup() {
 
 
 function draw() {
-	background(51);
+	setGradient(0, 0, width, height, bg2, bg1, Y_AXIS);
 	Engine.update(engine);
 
 	noStroke(255);
@@ -265,8 +274,28 @@ function restartBar() {
   hitFlag = false;
 }
 
+// Creates background gradient
+function setGradient(x, y, w, h, c1, c2, axis) {
 
+  noFill();
 
+  if (axis == Y_AXIS) {  // Top to bottom gradient
+    for (var i = y; i <= y+h; i++) {
+      var inter = map(i, y, y+h, 0, 1);
+      var c = lerpColor(c1, c2, inter);
+      stroke(c);
+      line(x, i, x+w, i);
+    }
+  }  
+  else if (axis == X_AXIS) {  // Left to right gradient
+    for (var i = x; i <= x+w; i++) {
+      var inter = map(i, x, x+w, 0, 1);
+      var c = lerpColor(c1, c2, inter);
+      stroke(c);
+      line(i, y, i, y+h);
+    }
+  }
+}
 
 
 

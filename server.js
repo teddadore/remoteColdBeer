@@ -8,7 +8,7 @@ var express = require('express');
 
 var app = express();
 app.locals.baseUrl = process.env.HOSTNAME + ':'+ process.env.PORT;
-console.log(app.locals);
+// console.log(app.locals);
 
 var server = app.listen(process.env.PORT || 3000, function(){
 	console.log("THIS IS MY CALLBACK");
