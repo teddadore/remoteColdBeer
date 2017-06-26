@@ -3,14 +3,14 @@
 // http://patreon.com/codingtrain
 // Code for: https://youtu.be/W-ou_sVlTWk
 
-function Hole(x, y, r, fixed) {
+function Triangle(x, y, sides, r, fixed) {
   var options = {
     friction: 0.6,
     restitution: 0.95,
     isStatic: fixed,
     mass: 0,
     collisionFilter: {
-        category: holeCategory
+        category: ballCategory
     }
   }
   var strokeColor;
@@ -18,18 +18,11 @@ function Hole(x, y, r, fixed) {
   strokeColor = color('rgba(0, 0, 0, 0.25)');
   fillColor = color('rgba(0 ,0, 0, 1)');
 
-  this.body = Bodies.circle(x, y, r, options);
+  this.body = Bodies.polygon(x, y, sides, r, options);
+  this.sides = sides;
   this.r = r;
   World.add(world, this.body);
 
-  this.isOffScreen = function() {
-    var pos = this.body.position;
-    return (pos.y > height + 100);
-  }
-
-  this.removeFromWorld = function() {
-    World.remove(world, this.body);
-  }
 
   this.show = function() {
     var pos = this.body.position;
@@ -38,12 +31,23 @@ function Hole(x, y, r, fixed) {
     translate(pos.x, pos.y);
     rotate(angle);
     rectMode(CENTER);
+    strokeCap(ROUND);
     strokeWeight(10);
     stroke(strokeColor);
     fill(fillColor);
-    ellipse(0, 0, this.r * 2);
-    // line(0, 0, this.r, 0);
+    polygon(pos.x, pos.y, this.r, this.sides);
     pop();
+  }
+
+  function polygon(x, y, radius, npoints) {
+    var angle = TWO_PI / npoints;
+    beginShape();
+    for (var a = 0; a < TWO_PI; a += angle) {
+      var sx = x + cos(a) * radius;
+      var sy = y + sin(a) * radius;
+      vertex(sx, sy);
+    }
+    endShape(CLOSE);
   }
 
 }

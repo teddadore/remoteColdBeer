@@ -23,9 +23,12 @@ var engine;
 var world;
 var circle;
 var hole;
+var square;
+var paddle;
 
 var fullBar =[];
 var holeRow1 = [];
+var holeRow2 = [];
 
 // Matter Constraints
 var mConstraint;
@@ -45,7 +48,7 @@ var hitFlag = false;
 
 
 function setup() {
-	var canvas = createCanvas(860, 700);
+	var canvas = createCanvas(860, 800);
 	engine = Engine.create();
   	world = engine.world;
 
@@ -79,8 +82,8 @@ function setup() {
 	    mouse: canvasMouse
 	}
 	mConstraint = MouseConstraint.create(engine, optionsMouse);
+	circle = new Particle(canvas.width/2, canvas.height * 0.88, 20);
 
-	circle = new Particle(canvas.width/2, canvas.height-140, 20);
 
 	// Background colors
 	bg1 = color(219, 134, 90);
@@ -91,8 +94,12 @@ function setup() {
 	canvasHeight = canvas.height;
 
 	// Hole measurements
-	var firstRow = canvasHeight * 0.7;
-	var xGapRandom = random(160, 200);
+	var firstRow = canvasHeight * 0.77;
+	var secondRow1 = canvasHeight * 0.5;
+	var secondRow2 = canvasHeight * 0.4;
+	var thirdRow = canvasHeight * 0.15;
+	var xGapRandom1 = random(160, 200);
+	var xGapRandom2 = random(350, 380);
 
 	// Bar measurements
 	barChain = 10;
@@ -103,12 +110,22 @@ function setup() {
 
 	// Add Holes
 	for (var i = 0; i < 5; i++) {
-	    var x = i * xGapRandom;
+	    var x = i * xGapRandom1;
 	    if(x == 0) {
 	      x = random(50, 80)
 	    } 
-	    holeRow1.push(new Hole(x, firstRow, random(30, 38), true));
+	    holeRow1.push(new Hole(x, firstRow, random(25, 38), true));
 	}
+
+	for (var i = 0; i < 3; i++) {
+	    var x = i * xGapRandom2;
+	    if(x == 0) {
+	      x = random(100, 140)
+	    } 
+	    holeRow2.push(new Square(x, random(secondRow1, secondRow2), 25, random(80, 180), 0, true));
+	}
+
+	paddle = new Square(canvasWidth/2, thirdRow, 220, 50, 0, true);
 
 	// Add Bar
 	barLeft = new Bar(barSidesW, barBottomPos, barSidesW, barSidesH, 0, true);
@@ -145,7 +162,7 @@ function setup() {
 	    Bodies.rectangle(canvasWidth, canvasHeight/2, 20, canvasHeight, { isStatic: true, collisionFilter: {category: defaultCategory} }),
 	    Bodies.rectangle(0, canvasHeight/2, 20, canvasHeight, { isStatic: true, collisionFilter: {category: defaultCategory}})
 	]);
-	
+
 }
 
 
@@ -163,6 +180,12 @@ function draw() {
     	holeRow1[i].show();
     }
 
+    for (var i = 0; i < holeRow2.length; i++) {
+    	holeRow2[i].show();
+    }
+
+    paddle.show();
+
 	barLeft.show();
 	barMiddle.show();
 	barRight.show();
@@ -170,13 +193,26 @@ function draw() {
 	if (hitFlag == true) {
 	    restartBar();
 	}
+
+	spinSquares();
+	movePaddle()
 }
 
-// function newDrawing (data) {
-// 	noStroke();
-// 	fill(255, 0, 100);
-// 	ellipse(data.x, data.y, 20, 20);
-// }
+function spinSquares() {
+
+	holeRow2.forEach(function(element){
+		Body.rotate(element.body, 0.01);
+	});
+}
+
+function movePaddle() {
+	var paddleY = paddle.body.position.y;
+	var paddleX = paddle.body.position.x;
+	var py = canvasWidth/2 + canvasWidth/3 * Math.sin(engine.timing.timestamp * 0.0004);
+
+	Body.setVelocity(paddle.body, { x: py - paddleX, y: paddleY });
+	Body.setPosition(paddle.body, { x: py, y: paddleY });
+}
 
 function moveRight(data) {
 	if (data == "right up") {
