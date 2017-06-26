@@ -15,6 +15,10 @@ function Bar(x, y, w, h, a, fixed, colCat) {
         }
 	}
 
+	var c1, c2;
+	c1 = color(210, 210, 210);
+  	c2 = color(181, 181, 181);
+
 	// Make rectangle
 	this.body = Bodies.rectangle(x, y, w, h, options);
 	this.w = w;
@@ -37,10 +41,10 @@ function Bar(x, y, w, h, a, fixed, colCat) {
 		translate(pos.x, pos.y);
 		rotate(angle);
 		rectMode(CENTER);
-		strokeWeight(1);
 		noStroke();
-		fill(0);
+		fill(c1);
 		rect(0, 0, this.w, this.h);
 		pop();
 	}
+
 }

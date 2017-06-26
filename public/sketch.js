@@ -103,9 +103,10 @@ function setup() {
 
 	// Bar measurements
 	barChain = 10;
-	barSidesW = 20;
-	barSidesH = 20;
-	barMiddleW = (canvasWidth - ((barSidesW * 2) + (barChain * 2) + (10 * 2)) );
+	barSidesW = 40;
+	barSidesH = 40;
+	barMiddleW = (canvasWidth - ((barSidesW * 2) + (barChain * 3.5) + (10 * 2)) );
+	barMiddleH = 30;
 	barBottomPos = canvas.height - barSidesH;
 
 	// Add Holes
@@ -129,14 +130,14 @@ function setup() {
 
 	// Add Bar
 	barLeft = new Bar(barSidesW, barBottomPos, barSidesW, barSidesH, 0, true);
-  	barMiddle = new Bar(canvas.width/2, canvas.height-barSidesH, barMiddleW, barSidesW, 0, false);
+  	barMiddle = new Bar(canvas.width/2, canvas.height-barSidesH, barMiddleW, barMiddleH, 0, false);
   	barRight = new Bar(canvas.width - barSidesW, barBottomPos, barSidesW, barSidesH, 0, true);
 
   	// Add Bar Constraints and Options
 	var optionsBarLeft = {
 		bodyA: barLeft.body,
 	    bodyB: barMiddle.body,
-	    pointA: { x: 10, y: 0 },
+	    pointA: { x: 20, y: 0 },
 	    pointB: { x: -(barMiddleW/2), y: 0 },
 	    length: barChain,
 	    stiffness: 0.8
@@ -145,7 +146,7 @@ function setup() {
 		bodyA: barMiddle.body,
 		bodyB: barRight.body,
 		pointA: { x: barMiddleW/2, y: 0 },
-		pointB: { x: -10, y: 0 },
+		pointB: { x: -20, y: 0 },
 		length: barChain,
 		stiffness: 0.8
 	}
@@ -162,7 +163,7 @@ function setup() {
 	    Bodies.rectangle(canvasWidth, canvasHeight/2, 20, canvasHeight, { isStatic: true, collisionFilter: {category: defaultCategory} }),
 	    Bodies.rectangle(0, canvasHeight/2, 20, canvasHeight, { isStatic: true, collisionFilter: {category: defaultCategory}})
 	]);
-
+	console.log(barMiddleW, barMiddle.body.position.x);
 }
 
 
