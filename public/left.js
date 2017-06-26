@@ -10,7 +10,7 @@ function setup() {
 	// console.log(process.env.HOSTNAME);
 	// socket = io.connect('http://localhost:3000');
 	// socket = io.connect('https://remotecoldbeer.herokuapp.com');
-	socket = io.connect('http://www.remotecoldbeer.com');
+	socket = io.connect('www.remotecoldbeer.com');
 
 	// socket = io.connect('172.20.33.122:3000'); The Yard
 	// socket = io.connect(req.app.locals.baseUrl);

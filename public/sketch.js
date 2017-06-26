@@ -55,7 +55,7 @@ function setup() {
 
 	// socket = io.connect('https://remotecoldbeer.herokuapp.com');
 	// socket = io.connect('http://localhost:3000');
-	socket = io.connect('http://www.remotecoldbeer.com');
+	socket = io.connect('www.remotecoldbeer.com');
 	
 
 	socket.on('rightPlayer', moveRight);
