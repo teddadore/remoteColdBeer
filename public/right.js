@@ -9,7 +9,9 @@ function setup() {
 	// socket = io.connect('http://localhost:3000');
 	// socket = io.connect('172.20.33.122:3000');
 	// socket = io.connect('http://localhost:3000');
-	socket = io.connect('https://remotecoldbeer.herokuapp.com');
+	// socket = io.connect('https://remotecoldbeer.herokuapp.com');
+	socket = io.connect('http://www.remotecoldbeer.com');
+	
 	// socket.on('mouse', newDrawing);
 }
 
@@ -25,12 +27,12 @@ function draw() {
 
 	if (keyIsDown(UP_ARROW)) {
     	upRight();
-    	// console.log("Arrow Key UP!");
+    	console.log("Arrow Key UP!");
   	}
 
   	if (keyIsDown(DOWN_ARROW)) {
     	downRight();
-    	// console.log("Arrow Key DOWN!");
+    	console.log("Arrow Key DOWN!");
   	}
 
   	if (mouseIsPressed) {

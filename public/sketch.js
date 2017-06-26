@@ -25,6 +25,7 @@ var circle;
 var hole;
 var square;
 var paddle;
+var player;
 
 var fullBar =[];
 var holeRow1 = [];
@@ -48,12 +49,14 @@ var hitFlag = false;
 
 
 function setup() {
-	var canvas = createCanvas(860, 800);
+	var canvas = createCanvas(860, 700);
 	engine = Engine.create();
   	world = engine.world;
 
-	socket = io.connect('https://remotecoldbeer.herokuapp.com');
+	// socket = io.connect('https://remotecoldbeer.herokuapp.com');
 	// socket = io.connect('http://localhost:3000');
+	socket = io.connect('http://www.remotecoldbeer.com');
+	
 
 	socket.on('rightPlayer', moveRight);
 	socket.on('leftPlayer', moveLeft);
@@ -103,10 +106,10 @@ function setup() {
 
 	// Bar measurements
 	barChain = 10;
-	barSidesW = 40;
-	barSidesH = 40;
-	barMiddleW = (canvasWidth - ((barSidesW * 2) + (barChain * 3.5) + (10 * 2)) );
-	barMiddleH = 30;
+	barSidesW = 20;
+	barSidesH = 20;
+	barMiddleW = (canvasWidth - ((barSidesW * 2) + (barChain * 2) + (10 * 2)) );
+	barMiddleH = 20;
 	barBottomPos = canvas.height - barSidesH;
 
 	// Add Holes
@@ -129,15 +132,18 @@ function setup() {
 	paddle = new Square(canvasWidth/2, thirdRow, 220, 50, 0, true);
 
 	// Add Bar
+	// barLeft = new Player(barSidesW, barBottomPos, barSidesW/2, 0, "blue", true);
 	barLeft = new Bar(barSidesW, barBottomPos, barSidesW, barSidesH, 0, true);
-  	barMiddle = new Bar(canvas.width/2, canvas.height-barSidesH, barMiddleW, barMiddleH, 0, false);
+  	barMiddle = new Bar(canvas.width/2, canvas.height-barSidesH, barMiddleW, barSidesW, 0, false);
+  	// barRight = new Player(canvas.width - barSidesW, barBottomPos, barSidesW/2, 0, "red", true);
   	barRight = new Bar(canvas.width - barSidesW, barBottomPos, barSidesW, barSidesH, 0, true);
+  	// player = new Player(0, 0, barSidesH/2, 0, "blue", true);
 
   	// Add Bar Constraints and Options
 	var optionsBarLeft = {
 		bodyA: barLeft.body,
 	    bodyB: barMiddle.body,
-	    pointA: { x: 20, y: 0 },
+	    pointA: { x: 10, y: 0 },
 	    pointB: { x: -(barMiddleW/2), y: 0 },
 	    length: barChain,
 	    stiffness: 0.8
@@ -146,7 +152,7 @@ function setup() {
 		bodyA: barMiddle.body,
 		bodyB: barRight.body,
 		pointA: { x: barMiddleW/2, y: 0 },
-		pointB: { x: -20, y: 0 },
+		pointB: { x: -10, y: 0 },
 		length: barChain,
 		stiffness: 0.8
 	}
@@ -196,7 +202,17 @@ function draw() {
 	}
 
 	spinSquares();
-	movePaddle()
+	movePaddle();
+
+	if (keyIsDown(UP_ARROW)) {
+    	upRight();
+    	console.log("Arrow Key UP!");
+  	}
+
+  	if (keyIsDown(DOWN_ARROW)) {
+    	downRight();
+    	console.log("Arrow Key DOWN!");
+  	}
 }
 
 function spinSquares() {
