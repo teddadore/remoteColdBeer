@@ -15,8 +15,8 @@ function Hole(x, y, r, fixed) {
   }
   var strokeColor;
   var fillColor;
-  strokeColor = color('rgba(0, 0, 0, 0.25)');
-  fillColor = color('rgba(0 ,0, 0, 1)');
+  strokeColor = color('rgba(23, 216, 248, 0.25)');
+  fillColor = color('rgba(23, 216, 248, 1)');
 
   this.body = Bodies.circle(x, y, r, options);
   this.r = r;
@@ -38,7 +38,7 @@ function Hole(x, y, r, fixed) {
     translate(pos.x, pos.y);
     rotate(angle);
     rectMode(CENTER);
-    strokeWeight(10);
+    strokeWeight(16);
     stroke(strokeColor);
     fill(fillColor);
     ellipse(0, 0, this.r * 2);

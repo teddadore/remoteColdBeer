@@ -1,8 +1,8 @@
 
-function Bar(x, y, w, h, a, fixed, colCat) {
+function Bar(x, y, w, h, a, barColor, fixed, colCat) {
 	if (colCat === undefined) {
 	    colCat = barCategory;
-	 }
+	}
 
 	var options = {
 		friction: 0,
@@ -15,9 +15,19 @@ function Bar(x, y, w, h, a, fixed, colCat) {
         }
 	}
 
-	var c1, c2;
-	c1 = color(210, 210, 210);
-  	c2 = color(181, 181, 181);
+	var fillColor = barColor;
+
+	if (barColor === "red") {
+		fillColor = color('rgba(248, 6, 6, 1)');
+	} else if (barColor === "blue") {
+		fillColor = color('rgba(17, 117, 228, 1)');
+	} else if (barColor === "grey") {
+		fillColor = color('rgba(55, 55, 55, 1)');
+	}
+
+	// var c1, c2;
+	// c1 = color(210, 210, 210);
+ //  	c2 = color(181, 181, 181);
 
 	// Make rectangle
 	this.body = Bodies.rectangle(x, y, w, h, options);
@@ -42,7 +52,7 @@ function Bar(x, y, w, h, a, fixed, colCat) {
 		rotate(angle);
 		rectMode(CENTER);
 		noStroke();
-		fill(c1);
+		fill(fillColor);
 		rect(0, 0, this.w, this.h);
 		pop();
 	}

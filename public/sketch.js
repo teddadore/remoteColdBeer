@@ -91,7 +91,7 @@ function setup() {
 
 
 	// Background colors
-	bg1 = color(219, 134, 90);
+	bg1 = color(213, 15, 203);
   	bg2 = color(237, 212, 49);
 
 	// Canvas measurements
@@ -128,28 +128,27 @@ function setup() {
 	    if(x == 0) {
 	      x = random(100, 140)
 	    } 
-	    holeRow2.push(new Square(x, random(secondRow1, secondRow2), 25, random(80, 180), 0, true));
+	    holeRow2.push(new Square(x, random(secondRow1, secondRow2), 25, random(80, 180), 0, "middle", true));
 	}
 
-	paddle = new Square(canvasWidth/2, thirdRow, 220, 50, 0, true);
+	paddle = new Square(canvasWidth/2, thirdRow, 220, 50, 0, "top", true);
 
 	// Add Bar
 	// barLeft = new Player(barSidesW, barBottomPos, barSidesW/2, 0, "blue", true);
-	barLeft = new Bar(barSidesW, barBottomPos, barSidesW, barSidesH, 0, true);
-  	barMiddle = new Bar(canvas.width/2, canvas.height-barSidesH, barMiddleW, barSidesW, 0, false);
+	barLeft = new Bar(barSidesW, barBottomPos, barSidesW, barSidesH, 0, "blue", true);
+  	barMiddle = new Bar(canvas.width/2, canvas.height-barSidesH, barMiddleW, barSidesW, 0, "grey", false);
+  	barRight = new Bar(canvas.width - barSidesW, barBottomPos, barSidesW, barSidesH, 0, "red", true);
   	// barRight = new Player(canvas.width - barSidesW, barBottomPos, barSidesW/2, 0, "red", true);
   	// guardLeft = new Bar(200, 200, 20, 60, 0, false);
   	// rod = new Bar(200, 200, 200, 20, 0, false);
-
-
-  	barRight = new Bar(canvas.width - barSidesW, barBottomPos, barSidesW, barSidesH, 0, true);
+  	
   	// player = new Player(0, 0, barSidesH/2, 0, "blue", true);
 
   	// Add Bar Constraints and Options
 	var optionsBarLeft = {
 		bodyA: barLeft.body,
 	    bodyB: barMiddle.body,
-	    pointA: { x: 10, y: barSidesH/2 },
+	    pointA: { x: 10, y: (barSidesH/2) - 10 },
 	    pointB: { x: -(barMiddleW/2), y: 0 },
 	    length: barChain,
 	    stiffness: 0.8
@@ -158,7 +157,7 @@ function setup() {
 		bodyA: barMiddle.body,
 		bodyB: barRight.body,
 		pointA: { x: barMiddleW/2, y: 0 },
-		pointB: { x: -10, y: barSidesH/2 },
+		pointB: { x: -10, y: (barSidesH/2) - 10 },
 		length: barChain,
 		stiffness: 0.8
 	}

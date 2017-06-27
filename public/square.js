@@ -1,5 +1,5 @@
 
-function Square(x, y, w, h, a, fixed) {
+function Square(x, y, w, h, a, barColor, fixed) {
 
 	var options = {
 		friction: 0,
@@ -12,9 +12,16 @@ function Square(x, y, w, h, a, fixed) {
 	}
 
 	var strokeColor;
-  	var fillColor;
-  	strokeColor = color('rgba(0, 0, 0, 0.25)');
-  	fillColor = color('rgba(0 ,0, 0, 1)');
+	var fillColor = barColor;
+
+	if (barColor === "middle") {
+		fillColor = color('rgba(66 ,250, 110, 1)');
+		strokeColor = color('rgba(66 ,250, 110, 0.25)');
+	} else if (barColor === "top") {
+		fillColor = color('rgba(251, 29, 90, 1)');
+		strokeColor = color('rgba(251, 29, 90, 0.25)');
+	}
+	
 
 	// Make rectangle
 	this.body = Bodies.rectangle(x, y, w, h, options);
@@ -33,7 +40,7 @@ function Square(x, y, w, h, a, fixed) {
 		translate(pos.x, pos.y);
 		rotate(angle);
 		rectMode(CENTER);
-		strokeWeight(10);
+		strokeWeight(16);
 		noStroke();
 		stroke(strokeColor);
     	fill(fillColor);
