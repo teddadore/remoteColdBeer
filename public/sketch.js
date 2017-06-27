@@ -26,6 +26,8 @@ var hole;
 var square;
 var paddle;
 var player;
+var rod;
+var guardLeft;
 
 var fullBar =[];
 var holeRow1 = [];
@@ -49,7 +51,7 @@ var hitFlag = false;
 
 
 function setup() {
-	var canvas = createCanvas(860, 700);
+	var canvas = createCanvas(860, 760);
 	engine = Engine.create();
   	world = engine.world;
 
@@ -107,13 +109,13 @@ function setup() {
 	// Bar measurements
 	barChain = 10;
 	barSidesW = 20;
-	barSidesH = 20;
+	barSidesH = 80;
 	barMiddleW = (canvasWidth - ((barSidesW * 2) + (barChain * 2) + (10 * 2)) );
 	barMiddleH = 20;
 	barBottomPos = canvas.height - barSidesH;
 
 	// Add Holes
-	for (var i = 0; i < 5; i++) {
+	for (var i = 0; i < 4; i++) {
 	    var x = i * xGapRandom1;
 	    if(x == 0) {
 	      x = random(50, 80)
@@ -136,6 +138,10 @@ function setup() {
 	barLeft = new Bar(barSidesW, barBottomPos, barSidesW, barSidesH, 0, true);
   	barMiddle = new Bar(canvas.width/2, canvas.height-barSidesH, barMiddleW, barSidesW, 0, false);
   	// barRight = new Player(canvas.width - barSidesW, barBottomPos, barSidesW/2, 0, "red", true);
+  	// guardLeft = new Bar(200, 200, 20, 60, 0, false);
+  	// rod = new Bar(200, 200, 200, 20, 0, false);
+
+
   	barRight = new Bar(canvas.width - barSidesW, barBottomPos, barSidesW, barSidesH, 0, true);
   	// player = new Player(0, 0, barSidesH/2, 0, "blue", true);
 
@@ -143,7 +149,7 @@ function setup() {
 	var optionsBarLeft = {
 		bodyA: barLeft.body,
 	    bodyB: barMiddle.body,
-	    pointA: { x: 10, y: 0 },
+	    pointA: { x: 10, y: barSidesH/2 },
 	    pointB: { x: -(barMiddleW/2), y: 0 },
 	    length: barChain,
 	    stiffness: 0.8
@@ -152,7 +158,7 @@ function setup() {
 		bodyA: barMiddle.body,
 		bodyB: barRight.body,
 		pointA: { x: barMiddleW/2, y: 0 },
-		pointB: { x: -10, y: 0 },
+		pointB: { x: -10, y: barSidesH/2 },
 		length: barChain,
 		stiffness: 0.8
 	}
@@ -196,6 +202,8 @@ function draw() {
 	barLeft.show();
 	barMiddle.show();
 	barRight.show();
+	// guardLeft.show();
+	// rod.show();
 
 	if (hitFlag == true) {
 	    restartBar();

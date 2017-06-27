@@ -6,8 +6,9 @@
 function Particle(x, y, r, fixed) {
   var options = {
     friction: 0.6,
-    restitution: 0.95,
+    restitution: 0.25,
     isStatic: fixed,
+    friction: 0.0005,
     mass: 0,
     collisionFilter: {
         category: ballCategory
