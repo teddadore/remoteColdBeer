@@ -51,7 +51,7 @@ var hitFlag = false;
 
 
 function setup() {
-	var canvas = createCanvas(860, 760);
+	var canvas = createCanvas(860, 800);
 	engine = Engine.create();
   	world = engine.world;
 
